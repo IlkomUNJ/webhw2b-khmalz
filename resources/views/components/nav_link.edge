@@ -1,0 +1,10 @@
+@let(isActive = isActiveRoute(request.url(), active))
+
+<a
+  href="{{ href }}"
+  class="py-3 font-medium transition-colors duration-300 {{ isActive
+        ? 'text-green-600 border-b-2 border-green-600'
+        : 'text-gray-600 hover:text-green-600' }}"
+>
+  {{{ await $slots.main() }}}
+</a>

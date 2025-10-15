@@ -17,6 +17,7 @@ const RegisterController = () => import('#controllers/auth/register_controller')
 const CartController = () => import('#controllers/api/cart_controller')
 const CheckoutController = () => import('#controllers/api/checkout_controller')
 const SuccessController = () => import('#controllers/success_controller')
+const ProductDashboardController = () => import('#controllers/dashboard/products_controller')
 
 router.get('/', [HomeController, 'handle']).as('home')
 router.on('/about').render('pages/about').as('about')
@@ -33,3 +34,14 @@ router.post('/logout', [LoginController, 'destroy']).as('logout')
 router.get('/cart', [CartController, 'index']).as('cart.index').use(middleware.auth())
 router.post('/checkout', [CheckoutController, 'store']).as('checkout.store').use(middleware.auth())
 router.get('/success', [SuccessController, 'handle']).as('success').use(middleware.canViewSuccess())
+
+// DASHBOARD
+
+router
+  .group(() => {
+    router.on('').render('pages/dashboard/index').as('index')
+    router.resource('products', ProductDashboardController).as('products').except(['show'])
+  })
+  .use(middleware.auth())
+  .as('dashboard')
+  .prefix('/dashboard')

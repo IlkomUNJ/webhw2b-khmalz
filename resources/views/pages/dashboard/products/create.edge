@@ -1,0 +1,108 @@
+@layouts.dashboard.main({ title: 'Add New Product' })
+
+  <div class="container mx-auto p-6">
+    <header class="bg-white shadow rounded-lg mb-6">
+      <div class="px-4 py-5 sm:px-6">
+        <h1 class="text-xl font-semibold text-gray-900">
+          Create a New Product
+        </h1>
+      </div>
+    </header>
+
+    <div class="bg-white shadow rounded-lg">
+      <form action="{{ route('dashboard.products.store') }}" method="POST">
+        {{ csrfField() }}
+        <div class="p-6 space-y-6">
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value="{{ old('name', '') }}"
+              class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-green-500 focus:outline-none focus:ring-2"
+            />
+            @inputError('name')
+              <p class="text-sm text-red-600 mt-1">
+                {{ $messages }}
+              </p>
+            @end
+          </div>
+
+          <div>
+            <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+
+            <div class="mt-1 flex rounded-md shadow-sm ">
+
+              <span
+                class="inline-flex items-center rounded-l-md border border-gray-300 bg-gray-50 px-3 text-gray-500"
+              >
+                <svg
+                  class="w-4 h-4 text-gray-800"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 17.345a4.76 4.76 0 0 0 2.558 1.618c2.274.589 4.512-.446 4.999-2.31.487-1.866-1.273-3.9-3.546-4.49-2.273-.59-4.034-2.623-3.547-4.488.486-1.865 2.724-2.899 4.998-2.31.982.236 1.87.793 2.538 1.592m-3.879 12.171V21m0-18v2.2"
+                  />
+                </svg>
+
+              </span>
+
+              <input
+                type="number"
+                id="price"
+                name="price"
+                step="0.01"
+                value="{{ old('price', '') }}"
+                class="block w-full p-2 flex-1 rounded-r-md border border-gray-300 focus:border-green-500 focus:ring-green-500 focus:outline-none focus:ring-2"
+                placeholder="0.00"
+              />
+            </div>
+
+            @inputError('price')
+              <p class="text-sm text-red-600 mt-1">
+                {{ $messages }}
+              </p>
+            @end
+          </div>
+
+          <div>
+            <label for="imageUrl" class="block text-sm font-medium text-gray-700">Image URL</label>
+            <input
+              type="text"
+              id="imageUrl"
+              name="imageUrl"
+              placeholder="https://example.com/image.png"
+              value="{{ old('imageUrl', '') }}"
+              class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-green-500 focus:outline-none focus:ring-2"
+            />
+            @inputError('imageUrl')
+              <p class="text-sm text-red-600 mt-1">
+                {{ $messages }}
+              </p>
+            @end
+          </div>
+        </div>
+
+        <div class="bg-gray-50 px-6 py-4 flex items-center justify-end gap-4 rounded-b-lg">
+          <a href="{{ route('dashboard.products.index') }}" class="text-gray-600 font-medium hover:underline">Cancel</a>
+          <button
+            type="submit"
+            class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-sm transition-colors"
+          >
+            Save Product
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+@end

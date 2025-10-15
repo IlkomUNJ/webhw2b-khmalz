@@ -1,0 +1,59 @@
+@layouts.dashboard.main({ title: 'Manage Products' })
+
+  <div class="container mx-auto p-6">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-2xl font-semibold text-gray-800">
+        Product Management
+      </h1>
+      <a
+        href="{{ route('dashboard.products.create') }}"
+        class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-sm transition-transform transform hover:scale-105"
+      >
+        &#43; Add Product
+      </a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="space-y-0">
+        @each(product in products)
+          <div
+            class="flex items-center justify-between p-4 border-b last:border-b-0 hover:bg-gray-50 transition-colors duration-200"
+          >
+
+            <div class="flex items-center gap-4">
+              <img src="{{ product.imageUrl }}" alt="{{ product.name }}" class="w-16 h-16 object-cover rounded-md" />
+              <div>
+                <p class="font-semibold text-lg text-gray-800">
+                  {{ product.name }}
+                </p>
+                <p class="text-sm text-gray-500">
+                  ${{ product.price }}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <a
+                href="{{ route('dashboard.products.edit', [product.id]) }}"
+                class="text-blue-600 hover:underline font-semibold text-sm"
+              >Edit</a>
+              <form action="{{ route('dashboard.products.destroy', [product.id]) }}?_method=DELETE" method="POST">
+                {{ csrfField() }}
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit" class="text-red-600 hover:underline font-semibold text-sm">Delete</button>
+              </form>
+            </div>
+
+          </div>
+        @else
+          <div class="text-center py-12 text-gray-500">
+            <p>
+              No products found. Click "Add Product" to get started.
+            </p>
+          </div>
+        @end
+      </div>
+    </div>
+  </div>
+
+@end

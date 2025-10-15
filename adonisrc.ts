@@ -65,6 +65,7 @@ export default defineConfig({
     () => import('#start/routes'),
     () => import('#start/api_routes'),
     () => import('#start/kernel'),
+    () => import('#start/view')
   ],
 
   /*
