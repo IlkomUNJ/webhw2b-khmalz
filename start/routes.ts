@@ -42,6 +42,6 @@ router
     router.on('').render('pages/dashboard/index').as('index')
     router.resource('products', ProductDashboardController).as('products').except(['show'])
   })
-  .use(middleware.auth())
+  .use(middleware.admin())
   .as('dashboard')
   .prefix('/dashboard')

@@ -45,6 +45,7 @@ router.use([
  * the routes or the routes group.
  */
 export const middleware = router.named({
+  admin: () => import('#middleware/admin_middleware'),
   canViewSuccess: () => import('#middleware/success_page_guard_middleware'),
   guest: () => import('#middleware/guest_middleware'),
   auth: () => import('#middleware/auth_middleware'),
