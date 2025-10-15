@@ -157,10 +157,12 @@ function updateCartBadge(count) {
 function updateTotalPrice(price) {
   const summarySubtotal = document.getElementById('summary-subtotal')
   const summaryTotal = document.getElementById('summary-total')
+  const modalSummaryTotal = document.getElementById('modal-summary-total')
   if (summarySubtotal && summaryTotal) {
     const formattedPrice = `$${price.toFixed(2)}`
     summarySubtotal.innerText = formattedPrice
     summaryTotal.innerText = formattedPrice
+    modalSummaryTotal.innerText = formattedPrice
   }
 }
 
