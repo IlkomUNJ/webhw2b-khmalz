@@ -21,6 +21,7 @@ const ProductDashboardController = () => import('#controllers/dashboard/products
 
 router.get('/', [HomeController, 'handle']).as('home')
 router.on('/about').render('pages/about').as('about')
+router.on('/contact').render('pages/contact').as('contact')
 router.get('/products', [ProductsController, 'index']).as('products.index')
 
 router.get('/register', [RegisterController, 'index']).as('register.index')
