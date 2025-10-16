@@ -7,87 +7,131 @@
     </a>
   </div>
 
-  <div class="flex items-center gap-8">
-    <ul class="flex gap-6 list-none m-0 p-0">
-      <li>
-        <a
-          href="{{ route('home') }}"
-          class="hover:text-green-400 font-medium transition-colors {{ request.url() === route('home') ? 'border-b-2 border-green-400 text-green-400 font-semibold' : '' }}"
-        >
-          Home
-        </a>
-      </li>
-      <li>
-        <a
-          href="{{ route('about') }}"
-          class="hover:text-green-400 font-medium transition-colors {{ request.url() === route('about') ? 'border-b-2 border-green-400 text-green-400 font-semibold' : '' }}"
-        >About</a>
-      </li>
-      <li>
-        <a
-          href="{{ route('products.index') }}"
-          class="hover:text-green-400 font-medium {{ request.url() === route('products.index') ? 'border-b-2 border-green-400 text-green-400 font-semibold' : '' }}"
-        >Products</a>
-      </li>
-      <li>
-        <a
-          href="{{ route('contact') }}"
-          class="hover:text-green-400 font-medium {{ request.url() === route('contact') ? 'border-b-2 border-green-400 text-green-400 font-semibold' : '' }}"
-        >Contact Us</a>
-      </li>
-    </ul>
+  <ul class="flex gap-6 list-none m-0 p-0">
+    <li>
+      <a
+        href="{{ route('home') }}"
+        class="hover:text-green-400 font-medium transition-colors {{ request.url() === route('home') ? 'border-b-2 border-green-400 text-green-400 font-semibold' : '' }}"
+      >
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="{{ route('about') }}" class="hover:text-green-400 font-medium transition-colors">About</a>
+    </li>
+    <li>
+      <a
+        href="{{ route('products.index') }}"
+        class="hover:text-green-400 font-medium transition-colors {{ request.url() === route('products.index') ? 'border-b-2 border-green-400 text-green-400 font-semibold' : '' }}"
+      >
+        Products
+      </a>
+    </li>
+    <li>
+      <a
+        href="{{ route('contact') }}"
+        class="hover:text-green-400 font-medium transition-colors {{ request.url() === route('contact') ? 'border-b-2 border-green-400 text-green-400 font-semibold' : '' }}"
+      >
+        Contact Us
+      </a>
+    </li>
+  </ul>
 
-    <div class="flex items-center gap-4">
-      @if(auth.isAuthenticated)
-        <span class="font-medium">Halo, {{ auth.user.name }}</span>
-
-        <a
-          href="{{ route('cart.index') }}"
-          class="relative flex items-center justify-center text-gray-100 hover:text-green-400 transition-transform transform hover:scale-110"
-          aria-label="Go to Cart"
+  <div class="flex items-center gap-6">
+    @if(auth.isAuthenticated)
+      <a
+        href="{{ route('cart.index') }}"
+        class="relative flex items-center justify-center text-gray-100 hover:text-green-400 transition-transform transform hover:scale-110"
+        aria-label="Go to Cart"
+      >
+        <svg
+          class="w-7 h-7"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 28 28"
+          stroke="currentColor"
         >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
+          />
+        </svg>
+        <span
+          id="cart-count-badge"
+          class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center {{ cartCount > 0 ? '' : 'hidden' }}"
+        >
+          {{ cartCount }}
+        </span>
+      </a>
+
+      <div class="relative">
+        <button id="user-menu-button" type="button" class="flex items-center gap-2 font-medium">
+          Halo, {{ auth.user.name }}
           <svg
-            class="w-7 h-7"
-            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
             fill="none"
-            viewBox="0 0 28 28"
             stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
-            />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
+        </button>
 
-          <span
-            id="cart-count-badge"
-            class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center {{ cartCount > 0 ? '' : 'hidden' }}"
-          >
-            {{ cartCount }}
-          </span>
-        </a>
-
-        <form action="{{ route('logout') }}" method="POST">
-          {{ csrfField() }}
-          <button
-            type="submit"
-            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors"
-          >
-            Logout
-          </button>
-        </form>
-
-      @else
-        <a href="{{ route('login.index') }}" class="font-medium hover:text-green-400 transition-colors">Login</a>
-        <a
-          href="{{ route('register.index') }}"
-          class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors"
+        <div
+          id="user-menu"
+          class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-gray-800 z-50"
         >
-          Register
-        </a>
-      @endif
-    </div>
+
+          @if(auth.user.email === 'admin@gmail.com')
+            <a href="{{ route('dashboard.index') }}" class="block px-4 py-2 text-sm hover:bg-gray-200">Dashboard</a>
+            <div class="border-t my-1">
+            </div>
+          @endif
+          
+          <form
+            action="{{ route('logout') }}"
+            method="POST"
+            onsubmit="return confirm('Are you sure you want to logout?');"
+          >
+            {{ csrfField() }}
+            <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+              Logout
+            </button>
+          </form>
+        </div>
+      </div>
+
+    @else
+      <a href="{{ route('login.index') }}" class="font-medium hover:text-green-400 transition-colors">Login</a>
+      <a
+        href="{{ route('register.index') }}"
+        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors"
+      >
+        Register
+      </a>
+    @endif
   </div>
 </nav>
+
+@pushOnceTo("scripts")
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const userMenuButton = document.getElementById("user-menu-button");
+      const userMenu = document.getElementById("user-menu");
+      if (userMenuButton && userMenu) {
+        userMenuButton.addEventListener("click", event => {
+          event.stopPropagation();
+          userMenu.classList.toggle("hidden");
+        });
+        document.addEventListener("click", event => {
+          if (!userMenu.classList.contains("hidden") && !userMenu.contains(event.target)) {
+            userMenu.classList.add("hidden");
+          }
+        });
+      }
+    });
+  </script>
+@end
