@@ -3,7 +3,7 @@
 >
   <div class="navbar-logo">
     <a href="{{ route('home') }}">
-      <img src="/assets/quick-logo.png" alt="Quick Logo" class="h-16 w-16 block" />
+      <img src="{{ asset('assets/quick-logo.png') }}" alt="Quick Logo" class="h-16 w-16 block" />
     </a>
   </div>
 
@@ -17,7 +17,10 @@
       </a>
     </li>
     <li>
-      <a href="{{ route('about') }}" class="hover:text-green-400 font-medium transition-colors">About</a>
+      <a
+        href="{{ route('about') }}"
+        class="hover:text-green-400 font-medium transition-colors {{ request.url() === route('about') ? 'border-b-2 border-green-400 text-green-400 font-semibold' : '' }}"
+      >About</a>
     </li>
     <li>
       <a
