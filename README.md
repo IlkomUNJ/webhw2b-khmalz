@@ -58,8 +58,6 @@ The application will usually be available at `http://127.0.0.1:3333`.
 
 ### Production
 
-To run the application in a production-like environment:
-
 1.  **Build the application:**
 
     ```bash
