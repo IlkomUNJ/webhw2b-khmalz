@@ -19,7 +19,6 @@ NIM: 1313624017
     ```
 
 2.  **Set up environment variables:**
-    Copy the example environment file:
 
     ```bash
     cp .env.example .env
